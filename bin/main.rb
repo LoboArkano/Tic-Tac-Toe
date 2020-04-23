@@ -3,7 +3,7 @@ p_names = {}
 p1_choices = []
 p2_choices = []
 turn = 1
-game_on, continue = true
+game_on = true
 next_turn, winner, draw = false
 
 puts 'Tic Tac Toe Game', ''
@@ -21,7 +21,7 @@ p_names[:p2] = input
 
 puts '', "Let's Start!", ''
 # Display default board
-while game_on || continue
+while game_on
   if turn.odd?
     print "#{p_names[:p1]} is your turn: "
   else
