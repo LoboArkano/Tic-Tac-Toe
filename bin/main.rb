@@ -8,6 +8,9 @@ next_turn, winner, draw = false
 
 puts 'Tic Tac Toe Game', ''
 # Display example board
+puts 'The object of Tic Tac Toe is to get three in a row. You play on a three by three game board.'
+puts 'Players alternate placing Xs and Os on the game board until either oppent has three in a row
+or all nine squares are filled.', ''
 
 print 'Player 1 Name: '
 input = gets.chomp
