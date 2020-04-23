@@ -1,37 +1,71 @@
 #!/usr/bin/env ruby
+p_names = {}
 p1_choices = []
 p2_choices = []
+turn = 1
+game_on, continue = true
+next_turn, winner, draw = false
 
 puts 'Tic Tac Toe Game', ''
+# Display example board
+
 print 'Player 1 Name: '
-p1_name = gets.chomp
+input = gets.chomp
+p_names[:p1] = input
 print 'Player 2 Name: '
-p2_name = gets.chomp
+input = gets.chomp
+p_names[:p2] = input
+
 puts '', "Let's Start!", ''
-print "#{p1_name} is your turn: "
-input = gets.chomp
-p1_choices.push(input)
-puts "#{p1_name} choice #{input}", ''
-print "#{p2_name} is your turn: "
-input = gets.chomp
-p2_choices.push(input)
-puts "#{p2_name} choice #{input}", ''
-print "#{p1_name} is your turn: "
-input = gets.chomp
-p1_choices.push(input)
-puts "#{p1_name} choice #{input}", ''
-print "#{p2_name} is your turn: "
-input = gets.chomp
-p2_choices.push(input)
-puts "#{p2_name} choice #{input}", ''
-print "#{p1_name} is your turn: "
-input = gets.chomp
-p1_choices.push(input)
-puts "#{p1_name} choice #{input}", ''
-print "#{p2_name} is your turn: "
-input = gets.chomp
-p2_choices.push(input)
-puts "#{p2_name} choice #{input}", ''
-puts "#{p2_name} Win the Game!"
-puts 'Congratulation!', ''
-puts 'You wanna play again?'
+# Display default board
+while game_on || continue
+  if turn.odd?
+    print "#{p_names[:p1]} is your turn: "
+  else
+    print "#{p_names[:p2]} is your turn: "
+  end
+  input = gets.chomp
+  unless next_turn
+    if (input.to_i >= 1 && input.to_i <= 9) && turn.odd?
+      puts "#{p_names[:p1]} choice #{input}", ''
+      p1_choices.push(input.to_i)
+      next_turn = true
+      turn += 1
+      # Check if player 1 wins the game
+      # Check if the game ends in a draw
+    elsif input.to_i >= 1 && input.to_i <= 9
+      puts "#{p_names[:p2]} choice #{input}", ''
+      p2_choices.push(input.to_i)
+      next_turn = true
+      turn += 1
+      # Check if player 2 wins the game
+      # Check if the game ends in a draw
+    else
+      puts 'Invalid movement. Try again.'
+    end
+    # Display board with the recent move
+  end
+  next_turn = false
+  draw = true if turn > 9
+  if winner || draw # rubocop:disable Style/Next
+    if winner == true
+      puts "#{p2_name} Win the Game!"
+      puts 'Congratulation!', ''
+    elsif draw == true
+      puts "It's a draw!", ''
+    end
+    puts 'You wanna play again? [Y/N]', ''
+    input = gets.chomp
+    if input.include?('N' || 'n')
+      game_on = false
+    elsif input.include?('Y' || 'y')
+      game_on = true
+      p1_choices = []
+      p2_choices = []
+      turn = 1
+      winner, draw = false
+    else
+      game_on = false
+    end
+  end
+end
