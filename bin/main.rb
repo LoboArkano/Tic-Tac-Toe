@@ -55,6 +55,7 @@ while game_on
     if (input.to_i >= 1 && input.to_i <= 9) && turn.odd?
       p1.choices.push(input)
       puts "#{p1.name} choose #{p1.choices[-1]}", ''
+      game_board.update_move(p1.choices[-1].to_i, 'X')
       next_turn = true
       turn += 1
       # Check if player 1 wins the game
@@ -62,6 +63,7 @@ while game_on
     elsif input.to_i >= 1 && input.to_i <= 9
       p2.choices.push(input)
       puts "#{p2.name} choose #{p2.choices[-1]}", ''
+      game_board.update_move(p2.choices[-1].to_i, 'O')
       next_turn = true
       turn += 1
       # Check if player 2 wins the game

@@ -25,6 +25,24 @@ class Board
     end
     @board
   end
+
+  def update_move(choice, sign)
+    i = if choice / 3.0 <= 1
+          0
+        elsif choice / 3.0 <= 2
+          2
+        else
+          4
+        end
+    j = if choice % 3 == 1
+          0
+        elsif choice % 3 == 2
+          2
+        else
+          4
+        end
+    @board[i][j] = sign
+  end
 end
 
 class Player
