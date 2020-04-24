@@ -15,9 +15,10 @@ class Board
 end
 
 class Player
-  def initialize(name, choices)
+  attr_reader :name
+  def initialize(name)
     @name = name
-    @choices = choices
+    @choices = []
   end
 end
 
