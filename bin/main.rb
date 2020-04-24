@@ -5,8 +5,6 @@ require './lib/clear'
 turorial_board = Board.new
 demo_board = Board.new
 game_board = Board.new
-p1_choices = []
-p2_choices = []
 turn = 1
 game_on = true
 next_turn, winner, draw = false
@@ -55,15 +53,15 @@ while game_on
   Screen.clear
   unless next_turn
     if (input.to_i >= 1 && input.to_i <= 9) && turn.odd?
-      puts "#{p1.name} choice #{input}", ''
-      p1_choices.push(input.to_i)
+      p1.choices.push(input)
+      puts "#{p1.name} choose #{p1.choices[-1]}", ''
       next_turn = true
       turn += 1
       # Check if player 1 wins the game
       # Check if the game ends in a draw
     elsif input.to_i >= 1 && input.to_i <= 9
-      puts "#{p2.name} choice #{input}", ''
-      p2_choices.push(input.to_i)
+      p2.choices.push(input)
+      puts "#{p2.name} choose #{p2.choices[-1]}", ''
       next_turn = true
       turn += 1
       # Check if player 2 wins the game
@@ -94,8 +92,6 @@ while game_on
       game_on = false
     elsif input.include?('Y' || 'y')
       game_on = true
-      p1_choices = []
-      p2_choices = []
       turn = 1
       winner, draw = false
     else
