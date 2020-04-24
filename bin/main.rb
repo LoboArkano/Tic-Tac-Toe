@@ -2,8 +2,8 @@
 require './lib/game'
 require './lib/clear'
 
-default_board = Board.new
-p_names = {}
+turorial_board = Board.new
+demo_board = Board.new
 p1_choices = []
 p2_choices = []
 turn = 1
@@ -15,7 +15,7 @@ puts 'Tic Tac Toe Game', ''
 puts '', 'The object of Tic Tac Toe is to get three in a row. You play on a three by three game board.'
 puts 'Players alternate placing Xs and Os on the game board until either oppent has three in a row
 or all nine squares are filled.'
-default_board.example.each do |arr|
+turorial_board.example.each do |arr|
   puts
   arr.each do |sub_arr|
     print sub_arr
@@ -32,8 +32,18 @@ p1 = Player.new(input)
 print 'Player 2 Name: '
 input = gets.chomp
 p2 = Player.new(input)
+Screen.clear
 
 puts '', "Let's Start!", ''
+puts 'Choice a number between 1 and 9'
+demo_board.instructions.each do |arr|
+  puts
+  arr.each do |sub_arr|
+    print sub_arr
+  end
+end
+puts '', ''
+
 # Display default board
 while game_on
   if turn.odd?

@@ -12,6 +12,19 @@ class Board
     @board[2][4] = 'O'
     @board
   end
+
+  def instructions
+    n = 1
+    @board.each do |arr|
+      arr.each do |sub_arr|
+        if sub_arr == ' '
+          sub_arr[' '] = n.to_s
+          n += 1
+        end
+      end
+    end
+    @board
+  end
 end
 
 class Player
