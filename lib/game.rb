@@ -10,7 +10,6 @@ class Board
     @board[4][4] = 'X'
     @board[2][0] = 'O'
     @board[2][4] = 'O'
-    @board
   end
 
   def instructions
@@ -23,7 +22,6 @@ class Board
         end
       end
     end
-    @board
   end
 
   def update_move(choice, sign)

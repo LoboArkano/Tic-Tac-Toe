@@ -3,7 +3,9 @@ require './lib/game'
 require './lib/clear'
 
 turorial_board = Board.new
+turorial_board.example
 demo_board = Board.new
+demo_board.instructions
 game_board = Board.new
 turn = 1
 game_on = true
@@ -14,7 +16,7 @@ puts 'Tic Tac Toe Game', ''
 puts '', 'The object of Tic Tac Toe is to get three in a row. You play on a three by three game board.'
 puts 'Players alternate placing Xs and Os on the game board until either oppent has three in a row
 or all nine squares are filled.'
-turorial_board.example.each do |arr|
+turorial_board.board.each do |arr|
   puts
   arr.each do |sub_arr|
     print sub_arr
@@ -35,7 +37,7 @@ Screen.clear
 
 puts '', "Let's Start!", ''
 puts 'Choice a number between 1 and 9'
-demo_board.instructions.each do |arr|
+demo_board.board.each do |arr|
   puts
   arr.each do |sub_arr|
     print sub_arr
