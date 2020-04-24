@@ -4,6 +4,7 @@ require './lib/clear'
 
 turorial_board = Board.new
 demo_board = Board.new
+game_board = Board.new
 p1_choices = []
 p2_choices = []
 turn = 1
@@ -22,7 +23,7 @@ turorial_board.example.each do |arr|
   end
 end
 puts '', ''
-print 'Press enter to start the game '
+print 'Press enter to start the game'
 gets.chomp
 Screen.clear
 
@@ -44,7 +45,6 @@ demo_board.instructions.each do |arr|
 end
 puts '', ''
 
-# Display default board
 while game_on
   if turn.odd?
     print "#{p1.name} is your turn: "
@@ -52,6 +52,7 @@ while game_on
     print "#{p2.name} is your turn: "
   end
   input = gets.chomp
+  Screen.clear
   unless next_turn
     if (input.to_i >= 1 && input.to_i <= 9) && turn.odd?
       puts "#{p1.name} choice #{input}", ''
@@ -70,7 +71,13 @@ while game_on
     else
       puts 'Invalid movement. Try again.'
     end
-    # Display board with the recent move
+    game_board.board.each do |arr|
+      puts
+      arr.each do |sub_arr|
+        print sub_arr
+      end
+    end
+    puts '', ''
   end
   next_turn = false
   draw = true if turn > 9
