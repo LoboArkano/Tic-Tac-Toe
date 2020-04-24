@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 require './lib/game'
+require './lib/clear'
 
+default_board = Board.new
 p_names = {}
 p1_choices = []
 p2_choices = []
@@ -8,11 +10,11 @@ turn = 1
 game_on = true
 next_turn, winner, draw = false
 
+Screen.clear
 puts 'Tic Tac Toe Game', ''
 puts '', 'The object of Tic Tac Toe is to get three in a row. You play on a three by three game board.'
 puts 'Players alternate placing Xs and Os on the game board until either oppent has three in a row
 or all nine squares are filled.'
-default_board = Board.new
 default_board.example.each do |arr|
   puts
   arr.each do |sub_arr|
@@ -20,32 +22,36 @@ default_board.example.each do |arr|
   end
 end
 puts '', ''
+print 'Press enter to start the game '
+gets.chomp
+Screen.clear
+
 print 'Player 1 Name: '
 input = gets.chomp
-p_names[:p1] = input
+p1 = Player.new(input)
 print 'Player 2 Name: '
 input = gets.chomp
-p_names[:p2] = input
+p2 = Player.new(input)
 
 puts '', "Let's Start!", ''
 # Display default board
 while game_on
   if turn.odd?
-    print "#{p_names[:p1]} is your turn: "
+    print "#{p1.name} is your turn: "
   else
-    print "#{p_names[:p2]} is your turn: "
+    print "#{p2.name} is your turn: "
   end
   input = gets.chomp
   unless next_turn
     if (input.to_i >= 1 && input.to_i <= 9) && turn.odd?
-      puts "#{p_names[:p1]} choice #{input}", ''
+      puts "#{p1.name} choice #{input}", ''
       p1_choices.push(input.to_i)
       next_turn = true
       turn += 1
       # Check if player 1 wins the game
       # Check if the game ends in a draw
     elsif input.to_i >= 1 && input.to_i <= 9
-      puts "#{p_names[:p2]} choice #{input}", ''
+      puts "#{p2.name} choice #{input}", ''
       p2_choices.push(input.to_i)
       next_turn = true
       turn += 1
@@ -60,7 +66,7 @@ while game_on
   draw = true if turn > 9
   if winner || draw # rubocop:disable Style/Next
     if winner == true
-      puts "#{p2_name} Win the Game!"
+      puts "#{p2.name} Win the Game!"
       puts 'Congratulation!', ''
     elsif draw == true
       puts "It's a draw!", ''
