@@ -1,3 +1,5 @@
+require 'set'
+
 class Board
   attr_reader :board
   def initialize
@@ -61,5 +63,28 @@ class Player
 end
 
 class Rules
-  def initialize; end
+  def initialize
+    @victory_rows = [%w[1 2 3], %w[4 5 6], %w[7 8 9], %w[1 4 7], %w[2 5 8], %w[3 6 9], %w[1 5 9], %w[3 5 7]]
+  end
+
+  def untaken?(choice, opponent_choices)
+    arr = []
+    arr.push(choice)
+    return false if arr.to_set.subset?(opponent_choices.to_set)
+
+    true
+  end
+
+  def valid_move(choice, opponent_choices)
+    (choice.to_i >= 1 && choice.to_i <= 9) && untaken?(choice, opponent_choices)
+  end
+
+  def win_check(choices)
+    @victory_rows.each do |victory_row|
+      if victory_row.to_set.subset?(choices.to_set)
+        return true
+      end
+    end
+    false
+  end
 end
