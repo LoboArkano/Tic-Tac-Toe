@@ -25,9 +25,9 @@ class Board
   end
 
   def update_move(choice, sign)
-    i = row_position
-    j = column_position
-    @board[i][j] = sign if valid(choice)
+    i = row_position(choice)
+    j = column_position(choice)
+    @board[i][j] = sign
   end
 
   def row_position(choice)
