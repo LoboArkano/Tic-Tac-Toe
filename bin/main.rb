@@ -7,9 +7,11 @@ turorial_board.example
 demo_board = Board.new
 demo_board.instructions
 game_board = Board.new
+game_rules = Rules.new
 turn = 1
+winner = ''
 game_on = true
-next_turn, winner, draw = false
+victory, draw = false
 
 Screen.clear
 puts 'Tic Tac Toe Game', ''
@@ -53,39 +55,40 @@ while game_on
   end
   input = gets.chomp
   Screen.clear
-  unless next_turn
-    if (input.to_i >= 1 && input.to_i <= 9) && turn.odd?
-      p1.choices.push(input)
-      puts "#{p1.name} choose #{p1.choices[-1]}", ''
-      game_board.update_move(p1.choices[-1].to_i, 'X')
-      next_turn = true
-      turn += 1
-      # Check if player 1 wins the game
-      # Check if the game ends in a draw
-    elsif input.to_i >= 1 && input.to_i <= 9
-      p2.choices.push(input)
-      puts "#{p2.name} choose #{p2.choices[-1]}", ''
-      game_board.update_move(p2.choices[-1].to_i, 'O')
-      next_turn = true
-      turn += 1
-      # Check if player 2 wins the game
-      # Check if the game ends in a draw
-    else
-      puts 'Invalid movement. Try again.'
+  if game_rules.valid_move(input, p2.choices) && turn.odd?
+    p1.choices.push(input)
+    puts "#{p1.name} choose #{p1.choices[-1]}", ''
+    game_board.update_move(p1.choices[-1].to_i, 'X')
+    turn += 1
+    if game_rules.win_check(p1.choices)
+      victory = true
+      winner = p1.name
     end
-    game_board.board.each do |arr|
-      puts
-      arr.each do |sub_arr|
-        print sub_arr
-      end
+    # Check if the game ends in a draw
+  elsif game_rules.valid_move(input, p1.choices) && turn.even?
+    p2.choices.push(input)
+    puts "#{p2.name} choose #{p2.choices[-1]}", ''
+    game_board.update_move(p2.choices[-1].to_i, 'O')
+    turn += 1
+    if game_rules.win_check(p2.choices)
+      victory = true
+      winner = p2.name
     end
-    puts '', ''
+    # Check if the game ends in a draw
+  else
+    puts 'Invalid movement. Try again.'
   end
-  next_turn = false
+  game_board.board.each do |arr|
+    puts
+    arr.each do |sub_arr|
+      print sub_arr
+    end
+  end
+  puts '', ''
   draw = true if turn > 9
-  if winner || draw # rubocop:disable Style/Next
-    if winner == true
-      puts "#{p2.name} Win the Game!"
+  if victory || draw # rubocop:disable Style/Next
+    if victory == true
+      puts "#{winner} Win the Game!"
       puts 'Congratulation!', ''
     elsif draw == true
       puts "It's a draw!", ''
@@ -97,7 +100,7 @@ while game_on
     elsif input.include?('Y' || 'y')
       game_on = true
       turn = 1
-      winner, draw = false
+      victory, draw = false
     else
       game_on = false
     end
