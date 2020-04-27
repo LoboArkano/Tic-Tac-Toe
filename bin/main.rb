@@ -55,7 +55,7 @@ while game_on
   end
   input = gets.chomp
   Screen.clear
-  if game_rules.valid_move(input, p2.choices) && turn.odd?
+  if turn.odd? && game_rules.valid_move(input, p1.choices, p2.choices)
     p1.choices.push(input)
     puts "#{p1.name} choose #{p1.choices[-1]}", ''
     game_board.update_move(p1.choices[-1].to_i, 'X')
@@ -64,7 +64,7 @@ while game_on
       victory = true
       winner = p1.name
     end
-  elsif game_rules.valid_move(input, p1.choices) && turn.even?
+  elsif turn.even? && game_rules.valid_move(input, p2.choices, p1.choices)
     p2.choices.push(input)
     puts "#{p2.name} choose #{p2.choices[-1]}", ''
     game_board.update_move(p2.choices[-1].to_i, 'O')
@@ -86,7 +86,7 @@ while game_on
   puts '', ''
   if victory || draw # rubocop:disable Style/Next
     if victory == true
-      puts "#{winner} Win the Game!"
+      puts "#{winner} Wins the Game!"
       puts 'Congratulation!', ''
     elsif draw == true
       puts "It's a draw!", ''
