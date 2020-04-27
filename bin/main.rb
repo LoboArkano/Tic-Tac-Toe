@@ -93,9 +93,9 @@ while game_on
     end
     puts 'You wanna play again? [Y/N]', ''
     input = gets.chomp
-    if input.include?('N' || 'n')
+    if input.include?('N') || input.include?('n')
       game_on = false
-    elsif input.include?('Y' || 'y')
+    elsif input.include?('Y') || input.include?('y')
       game_on = true
       turn = 1
       victory, draw = false
