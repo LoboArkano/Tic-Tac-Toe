@@ -64,7 +64,6 @@ while game_on
       victory = true
       winner = p1.name
     end
-    # Check if the game ends in a draw
   elsif game_rules.valid_move(input, p1.choices) && turn.even?
     p2.choices.push(input)
     puts "#{p2.name} choose #{p2.choices[-1]}", ''
@@ -74,10 +73,10 @@ while game_on
       victory = true
       winner = p2.name
     end
-    # Check if the game ends in a draw
   else
     puts 'Invalid movement. Try again.'
   end
+  draw = game_rules.draw_check(turn)
   game_board.board.each do |arr|
     puts
     arr.each do |sub_arr|
@@ -85,7 +84,6 @@ while game_on
     end
   end
   puts '', ''
-  draw = true if turn > 9
   if victory || draw # rubocop:disable Style/Next
     if victory == true
       puts "#{winner} Win the Game!"

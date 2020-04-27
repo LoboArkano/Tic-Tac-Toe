@@ -87,4 +87,8 @@ class Rules
     end
     false
   end
+
+  def draw_check(turn)
+    turn > 9
+  end
 end
