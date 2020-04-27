@@ -99,8 +99,12 @@ while game_on
       game_on = true
       turn = 1
       victory, draw = false
+      p1.choices = []
+      p2.choices = []
+      game_board = Board.new
     else
       game_on = false
     end
+    Screen.clear
   end
 end
