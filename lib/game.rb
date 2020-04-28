@@ -19,9 +19,7 @@ class Rules
   end
 
   def untaken?(choice, opponent_choices)
-    arr = []
-    arr.push(choice)
-    return false if arr.to_set.subset?(opponent_choices.to_set)
+    return false if opponent_choices.include?(choice)
 
     true
   end
