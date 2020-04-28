@@ -28,8 +28,8 @@ until valid
   print 'Player 1 Name: '
   input = gets.chomp
   Screen.clear
-  if !input.strip!.empty?
-    p1 = Player.new(input)
+  if !input.strip.empty?
+    p1 = Player.new(input.strip)
     valid = true
   else
     puts '', 'Please, enter a valid name.'
@@ -40,8 +40,8 @@ until valid
   print 'Player 2 Name: '
   input = gets.chomp
   Screen.clear
-  if !input.strip!.empty?
-    p2 = Player.new(input)
+  if !input.strip.empty?
+    p2 = Player.new(input.strip)
     valid = true
   else
     puts '', 'Please, enter a valid name.'
