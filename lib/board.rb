@@ -24,6 +24,15 @@ class Board
     end
   end
 
+  def show
+    @board.each do |arr|
+      puts
+      arr.each do |sub_arr|
+        print sub_arr
+      end
+    end
+  end
+
   def update_move(choice, sign)
     i = row_position(choice)
     j = column_position(choice)

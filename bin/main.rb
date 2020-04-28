@@ -9,14 +9,6 @@ turn = 1
 winner = ''
 game_on = true
 victory, draw = false
-print_board = proc do |board|
-  board.each do |arr|
-    puts
-    arr.each do |sub_arr|
-      print sub_arr
-    end
-  end
-end
 
 Screen.clear
 puts 'Tic Tac Toe Game', ''
@@ -24,7 +16,7 @@ puts '', 'The object of Tic Tac Toe is to get three in a row. You play on a thre
 puts 'Players alternate placing Xs and Os on the game board until either oppent has three in a row
 or all nine squares are filled.'
 game_board.example
-print_board.call(game_board.board)
+game_board.show
 game_board = Board.new
 puts '', ''
 print 'Press enter to start the game'
@@ -42,7 +34,7 @@ Screen.clear
 puts '', "Let's Start!", ''
 puts 'Choice a number between 1 and 9'
 game_board.instructions
-print_board.call(game_board.board)
+game_board.show
 game_board = Board.new
 puts '', ''
 
@@ -76,7 +68,7 @@ while game_on
     puts 'Invalid movement. Try again.'
   end
   draw = game_rules.draw_check(turn)
-  print_board.call(game_board.board)
+  game_board.show
   puts '', ''
   if victory || draw # rubocop:disable Style/Next
     if victory == true
