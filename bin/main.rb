@@ -10,7 +10,7 @@ turn = 1
 winner = ''
 input = ''
 game_on = true
-victory, draw, valid = false
+draw, valid = false
 
 Screen.clear
 puts 'Tic Tac Toe Game', ''
@@ -70,27 +70,23 @@ while game_on
     puts "#{p1.name} choose #{p1.choices[-1]}", ''
     game_board.update_move(p1.choices[-1].to_i, 'X')
     turn += 1
-    if game_rules.win_check(p1.choices)
-      victory = true
-      winner = p1.name
-    end
+    game_rules.game_over(p1) if game_rules.win_check(p1.choices)
   elsif turn.even? && game_rules.valid_move(input, p2.choices, p1.choices)
     p2.choices.push(input)
     puts "#{p2.name} choose #{p2.choices[-1]}", ''
     game_board.update_move(p2.choices[-1].to_i, 'O')
     turn += 1
-    if game_rules.win_check(p2.choices)
-      victory = true
-      winner = p2.name
-    end
+    game_rules.game_over(p2) if game_rules.win_check(p2.choices)
   else
     puts 'Invalid movement. Try again.'
   end
+
   draw = game_rules.draw_check(turn)
   game_board.show
   puts '', ''
-  if victory || draw # rubocop:disable Style/Next
-    if victory == true
+
+  if game_rules.victory || draw # rubocop:disable Style/Next
+    if game_rules.victory == true
       puts "#{winner} Wins the Game!"
       puts 'Congratulation!', ''
     elsif draw == true
@@ -103,7 +99,7 @@ while game_on
     elsif input.include?('Y') || input.include?('y')
       game_on = true
       turn = 1
-      victory, draw = false
+      game_rules.victory, draw = false
       p1.choices = []
       p2.choices = []
       game_board = Board.new

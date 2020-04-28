@@ -1,8 +1,17 @@
 require 'set'
+require './lib/player'
+require './lib/board'
 
 class Rules
+  attr_accessor :victory
   def initialize
     @victory_rows = [%w[1 2 3], %w[4 5 6], %w[7 8 9], %w[1 4 7], %w[2 5 8], %w[3 6 9], %w[1 5 9], %w[3 5 7]]
+    @victory = false
+  end
+
+  def game_over(player)
+    @victory = true
+    player.winner = true
   end
 
   def in_range?(choice)
