@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require './lib/game'
+require './lib/board'
 require './lib/clear'
 
 game_board = Board.new
