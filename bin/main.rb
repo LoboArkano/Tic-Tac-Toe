@@ -7,8 +7,9 @@ game_board = Board.new
 game_rules = Rules.new
 turn = 1
 winner = ''
+input = ''
 game_on = true
-victory, draw = false
+victory, draw, valid = false
 
 Screen.clear
 puts 'Tic Tac Toe Game', ''
@@ -23,12 +24,29 @@ print 'Press enter to start the game'
 gets.chomp
 Screen.clear
 
-print 'Player 1 Name: '
-input = gets.chomp
-p1 = Player.new(input)
-print 'Player 2 Name: '
-input = gets.chomp
-p2 = Player.new(input)
+until valid
+  print 'Player 1 Name: '
+  input = gets.chomp
+  Screen.clear
+  if !input.strip!.empty?
+    p1 = Player.new(input)
+    valid = true
+  else
+    puts '', 'Please, enter a valid name.'
+  end
+end
+valid = false
+until valid
+  print 'Player 2 Name: '
+  input = gets.chomp
+  Screen.clear
+  if !input.strip!.empty?
+    p2 = Player.new(input)
+    valid = true
+  else
+    puts '', 'Please, enter a valid name.'
+  end
+end
 Screen.clear
 
 puts '', "Let's Start!", ''
