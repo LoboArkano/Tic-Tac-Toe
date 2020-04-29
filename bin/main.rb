@@ -4,6 +4,15 @@ require './lib/board'
 require './lib/player'
 require './lib/clear'
 
+def print_board(board)
+  board.each do |arr|
+    puts
+    arr.each do |sub_arr|
+      print sub_arr
+    end
+  end
+end
+
 game_board = Board.new
 game = Game.new
 input = ''
@@ -16,7 +25,7 @@ puts '', 'The object of Tic Tac Toe is to get three in a row. You play on a thre
 puts 'Players alternate placing Xs and Os on the game board until either oppent has three in a row
 or all nine squares are filled.'
 game_board.example
-game_board.show
+print_board(game_board.board)
 game_board = Board.new
 puts '', ''
 print 'Press enter to start the game'
@@ -52,7 +61,7 @@ puts '', "Let's Start!", ''
 game_board.default
 
 while game_on
-  game_board.show
+  print_board(game_board.board)
   puts '', '', 'Choose a number between 1 and 9'
   if game.turn.odd?
     print "#{p1.name} is your turn: "
@@ -75,7 +84,7 @@ while game_on
   puts ''
 
   while game.end_game
-    game_board.show
+    print_board(game_board.board)
     puts '', ''
     if game.victory
       puts "#{game.who_win?(p1, p2)} Wins the Game!"
