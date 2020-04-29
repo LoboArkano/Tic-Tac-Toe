@@ -49,9 +49,9 @@ end
 Screen.clear
 
 puts '', "Let's Start!", ''
+game_board.default
 
 while game_on
-  game_board.default
   game_board.show
   puts '', '', 'Choose a number between 1 and 9'
   if game.turn.odd?
@@ -75,6 +75,8 @@ while game_on
   puts ''
 
   while game.end_game
+    game_board.show
+    puts '', ''
     if game.victory
       puts "#{game.who_win?(p1, p2)} Wins the Game!"
       puts 'Congratulation!', ''
@@ -90,6 +92,7 @@ while game_on
     elsif input == 'Y'
       game.check_restart(p1, p2)
       game_board = Board.new
+      game_board.default
     end
     Screen.clear
   end
