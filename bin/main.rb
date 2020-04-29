@@ -71,10 +71,14 @@ while game_on
   input = gets.chomp
   Screen.clear
   if game.turn.odd? && game.valid_move(input, p1.choices, p2.choices)
-    game.update_game(p1, input, game_board, 'X')
+    p1.choices.push(input)
+    puts "#{p1.name} choose #{p1.choices[-1]}"
+    game.update_game(p1, game_board, 'X')
     game.game_over(p1) if game.win_check(p1.choices)
   elsif game.turn.even? && game.valid_move(input, p2.choices, p1.choices)
-    game.update_game(p2, input, game_board, 'O')
+    p2.choices.push(input)
+    puts "#{p2.name} choose #{p2.choices[-1]}"
+    game.update_game(p2, game_board, 'O')
     game.game_over(p2) if game.win_check(p2.choices)
   else
     puts 'Invalid movement. Try again.'

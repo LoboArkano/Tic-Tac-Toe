@@ -29,9 +29,7 @@ class Game
     in_range?(choice) && untaken?(choice, opponent_choices) && previous_choice?(choice, choices)
   end
 
-  def update_game(player, input, game_board, sign)
-    player.choices.push(input)
-    puts "#{player.name} choose #{player.choices[-1]}"
+  def update_game(player, game_board, sign)
     game_board.update_move(player.choices[-1].to_i, sign)
     @turn += 1
   end
