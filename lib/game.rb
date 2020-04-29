@@ -2,7 +2,7 @@ require 'set'
 require './lib/player'
 require './lib/board'
 
-class Rules
+class Game
   attr_accessor :victory, :turn, :end_game
   def initialize
     @victory_rows = [%w[1 2 3], %w[4 5 6], %w[7 8 9], %w[1 4 7], %w[2 5 8], %w[3 6 9], %w[1 5 9], %w[3 5 7]]
@@ -31,7 +31,7 @@ class Rules
 
   def update_game(player, input, game_board, sign)
     player.choices.push(input)
-    puts "#{player.name} choose #{player.choices[-1]}", ''
+    puts "#{player.name} choose #{player.choices[-1]}"
     game_board.update_move(player.choices[-1].to_i, sign)
     @turn += 1
   end
@@ -51,5 +51,23 @@ class Rules
 
   def draw_check
     @end_game = true if @turn > 9
+  end
+
+  def who_win?(player1, player2)
+    player1.winner ? player1.name : player2.name
+  end
+
+  def check_restart(player1, player2)
+    restart_game(player1, player2)
+  end
+
+  private
+
+  def restart_game(player1, player2)
+    @end_game = false
+    @turn = 1
+    @victory = false
+    player1.choices = []
+    player2.choices = []
   end
 end

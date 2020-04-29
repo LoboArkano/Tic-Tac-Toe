@@ -12,7 +12,7 @@ class Board
     @board[2][4] = 'O'
   end
 
-  def instructions
+  def default
     n = 1
     @board.each do |arr|
       arr.each do |sub_arr|

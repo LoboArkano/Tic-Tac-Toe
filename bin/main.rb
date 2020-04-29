@@ -5,7 +5,7 @@ require './lib/player'
 require './lib/clear'
 
 game_board = Board.new
-game = Rules.new
+game = Game.new
 winner = ''
 input = ''
 game_on = true
@@ -50,13 +50,11 @@ end
 Screen.clear
 
 puts '', "Let's Start!", ''
-puts 'Choice a number between 1 and 9'
-game_board.instructions
-game_board.show
-game_board = Board.new
-puts '', ''
 
 while game_on
+  game_board.default
+  game_board.show
+  puts '', '', 'Choose a number between 1 and 9'
   if game.turn.odd?
     print "#{p1.name} is your turn: "
   else
@@ -75,12 +73,11 @@ while game_on
   end
 
   game.draw_check
-  game_board.show
-  puts '', ''
+  puts ''
 
   while game.end_game
     if game.victory
-      puts "#{winner} Wins the Game!"
+      puts "#{game.who_win?(p1, p2)} Wins the Game!"
       puts 'Congratulation!', ''
     else
       puts "It's a draw!", ''
@@ -93,11 +90,7 @@ while game_on
       break
     elsif input == 'Y'
       game_on = true
-      game.end_game = false
-      game.turn = 1
-      game.victory
-      p1.choices = []
-      p2.choices = []
+      game.check_restart(p1, p2)
       game_board = Board.new
     end
     Screen.clear
