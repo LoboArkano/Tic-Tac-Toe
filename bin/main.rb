@@ -58,24 +58,18 @@ game_board = Board.new
 puts '', ''
 
 while game_on
-  if turn.odd?
+  if game_rules.turn.odd?
     print "#{p1.name} is your turn: "
   else
     print "#{p2.name} is your turn: "
   end
   input = gets.chomp
   Screen.clear
-  if turn.odd? && game_rules.valid_move(input, p1.choices, p2.choices)
-    p1.choices.push(input)
-    puts "#{p1.name} choose #{p1.choices[-1]}", ''
-    game_board.update_move(p1.choices[-1].to_i, 'X')
-    turn += 1
+  if game_rules.turn.odd? && game_rules.valid_move(input, p1.choices, p2.choices)
+    game_rules.update_game(p1, input, game_board, 'X')
     game_rules.game_over(p1) if game_rules.win_check(p1.choices)
-  elsif turn.even? && game_rules.valid_move(input, p2.choices, p1.choices)
-    p2.choices.push(input)
-    puts "#{p2.name} choose #{p2.choices[-1]}", ''
-    game_board.update_move(p2.choices[-1].to_i, 'O')
-    turn += 1
+  elsif game_rules.turn.even? && game_rules.valid_move(input, p2.choices, p1.choices)
+    game_rules.update_game(p2, input, game_board, 'O')
     game_rules.game_over(p2) if game_rules.win_check(p2.choices)
   else
     puts 'Invalid movement. Try again.'
@@ -98,7 +92,7 @@ while game_on
       game_on = false
     elsif input.include?('Y') || input.include?('y')
       game_on = true
-      turn = 1
+      game_rules.turn = 1
       game_rules.victory, draw = false
       p1.choices = []
       p2.choices = []
