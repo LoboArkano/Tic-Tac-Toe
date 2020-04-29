@@ -6,7 +6,6 @@ require './lib/clear'
 
 game_board = Board.new
 game = Game.new
-winner = ''
 input = ''
 game_on = true
 valid = false
