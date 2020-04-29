@@ -5,12 +5,11 @@ require './lib/player'
 require './lib/clear'
 
 game_board = Board.new
-game_rules = Rules.new
-turn = 1
+game = Rules.new
 winner = ''
 input = ''
 game_on = true
-draw, valid = false
+valid = false
 
 Screen.clear
 puts 'Tic Tac Toe Game', ''
@@ -58,47 +57,48 @@ game_board = Board.new
 puts '', ''
 
 while game_on
-  if game_rules.turn.odd?
+  if game.turn.odd?
     print "#{p1.name} is your turn: "
   else
     print "#{p2.name} is your turn: "
   end
   input = gets.chomp
   Screen.clear
-  if game_rules.turn.odd? && game_rules.valid_move(input, p1.choices, p2.choices)
-    game_rules.update_game(p1, input, game_board, 'X')
-    game_rules.game_over(p1) if game_rules.win_check(p1.choices)
-  elsif game_rules.turn.even? && game_rules.valid_move(input, p2.choices, p1.choices)
-    game_rules.update_game(p2, input, game_board, 'O')
-    game_rules.game_over(p2) if game_rules.win_check(p2.choices)
+  if game.turn.odd? && game.valid_move(input, p1.choices, p2.choices)
+    game.update_game(p1, input, game_board, 'X')
+    game.game_over(p1) if game.win_check(p1.choices)
+  elsif game.turn.even? && game.valid_move(input, p2.choices, p1.choices)
+    game.update_game(p2, input, game_board, 'O')
+    game.game_over(p2) if game.win_check(p2.choices)
   else
     puts 'Invalid movement. Try again.'
   end
 
-  draw = game_rules.draw_check(turn)
+  game.draw_check
   game_board.show
   puts '', ''
 
-  if game_rules.victory || draw # rubocop:disable Style/Next
-    if game_rules.victory == true
+  while game.end_game
+    if game.victory
       puts "#{winner} Wins the Game!"
       puts 'Congratulation!', ''
-    elsif draw == true
+    else
       puts "It's a draw!", ''
     end
+
     puts 'You wanna play again? [Y/N]', ''
     input = gets.chomp
     if input.include?('N') || input.include?('n')
       game_on = false
+      break
     elsif input.include?('Y') || input.include?('y')
       game_on = true
-      game_rules.turn = 1
-      game_rules.victory, draw = false
+      game.end_game = false
+      game.turn = 1
+      game.victory
       p1.choices = []
       p2.choices = []
       game_board = Board.new
-    else
-      game_on = false
     end
     Screen.clear
   end

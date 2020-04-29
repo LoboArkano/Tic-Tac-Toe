@@ -3,10 +3,11 @@ require './lib/player'
 require './lib/board'
 
 class Rules
-  attr_accessor :victory, :turn
+  attr_accessor :victory, :turn, :end_game
   def initialize
     @victory_rows = [%w[1 2 3], %w[4 5 6], %w[7 8 9], %w[1 4 7], %w[2 5 8], %w[3 6 9], %w[1 5 9], %w[3 5 7]]
     @victory = false
+    @end_game = false
     @turn = 1
   end
 
@@ -43,11 +44,12 @@ class Rules
   end
 
   def game_over(player)
+    @end_game = true
     @victory = true
     player.winner = true
   end
 
-  def draw_check(turn)
-    turn > 9
+  def draw_check
+    @end_game = true if @turn > 9
   end
 end
