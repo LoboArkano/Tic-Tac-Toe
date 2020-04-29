@@ -87,11 +87,11 @@ while game_on
     end
 
     puts 'You wanna play again? [Y/N]', ''
-    input = gets.chomp
-    if input.include?('N') || input.include?('n')
+    input = gets.chomp.upcase
+    if input == 'N'
       game_on = false
       break
-    elsif input.include?('Y') || input.include?('y')
+    elsif input == 'Y'
       game_on = true
       game.end_game = false
       game.turn = 1
