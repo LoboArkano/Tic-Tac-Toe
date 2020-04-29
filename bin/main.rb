@@ -88,7 +88,6 @@ while game_on
       game_on = false
       break
     elsif input == 'Y'
-      game_on = true
       game.check_restart(p1, p2)
       game_board = Board.new
     end
