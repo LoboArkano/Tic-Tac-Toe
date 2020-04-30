@@ -3,7 +3,7 @@ Build a tic-tac-toe game on the command line where two human players can play ag
 
 ![Anotación 2020-04-27 164821](https://user-images.githubusercontent.com/33432289/80424462-68f4a180-88a7-11ea-9cd4-79cc15bf3a3d.jpg)
 
-The object of Tic Tac Toe is to get three in a row. You play on a three by three game board. The first player is known as X and the second is O. Players alternate placing Xs and Os on the game board until either opponent has three in a row or all nine squares are filled. X always goes first, and in the event that no one has three in a row, the stalemate is called a cat game.
+The object of Tic Tac Toe is to get three consecutive cells (row, column or diagonal). You play on a three by three game board. The first player is known as X and the second is O. Players alternate placing Xs and Os on the game board until either opponent has three consecutive cells or all nine squares are filled. X always goes first, and in the event that no one has three consecutive cells, the stalemate is called a cat game.
 
 ## Built With
 
