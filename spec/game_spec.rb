@@ -23,12 +23,22 @@ describe Game do
     end
   end
   describe '#previous_choice?' do
-    let(:previous_choice?) { [1, 3, 6, 8] }
+    let(:previous_choice) { [1, 3, 6, 8] }
     it 'Return true if the input is not equal to one of the user previous choices' do
-      expect(game.previous_choice?(4, previous_choice?)).to eql(true)
+      expect(game.previous_choice?(4, previous_choice)).to eql(true)
     end
     it 'Return false if the input is equal to one of the user previous choices' do
-      expect(game.previous_choice?(6, previous_choice?)).to eql(false)
+      expect(game.previous_choice?(6, previous_choice)).to eql(false)
+    end
+  end
+  describe '#valid_move' do
+    let(:previous_choice) { [4, 5, 8, 9] }
+    let(:opponent_choices) { [2, 3, 6, 7] }
+    it 'Return true if all the methods return true' do
+      expect(game.valid_move(1, previous_choice, opponent_choices)).to eql(true)
+    end
+    it 'Return false if one of the methods return false' do
+      expect(game.valid_move(10, previous_choice, opponent_choices)).to eql(false)
     end
   end
 end
