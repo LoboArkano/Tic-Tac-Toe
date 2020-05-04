@@ -22,4 +22,13 @@ describe Game do
       expect(game.untaken?(7, opponent_choices)).to eql(false)
     end
   end
+  describe '#previous_choice?' do
+    let(:previous_choice?) { [1, 3, 6, 8] }
+    it 'Return true if the input is not equal to one of the user previous choices' do
+      expect(game.previous_choice?(4, previous_choice?)).to eql(true)
+    end
+    it 'Return false if the input is equal to one of the user previous choices' do
+      expect(game.previous_choice?(6, previous_choice?)).to eql(false)
+    end
+  end
 end
