@@ -1,7 +1,10 @@
 require './lib/game'
+require './lib/board'
+require './lib/player'
 
 describe Game do
   let(:game) { Game.new }
+  let(:game_board) { Board.new }
   describe '#in_range?' do
     it 'Return true if input is greater or equal than 1 and less or equal than 9' do
       expect(game.in_range?(5)).to eql(true)
@@ -39,6 +42,16 @@ describe Game do
     end
     it 'Return false if one of the methods return false' do
       expect(game.valid_move(10, previous_choice, opponent_choices)).to eql(false)
+    end
+  end
+  describe '#update_game' do
+    let(:board) { game_board.board }
+    let(:player) { Player.new('GTO') }
+    it 'Update the board with the user move' do
+      expect { game_board.update_move(3, 'X') }.to change(game_board, :board)
+    end
+    it 'turn variable increment his value by one' do
+      expect { game.update_game(player, game_board, 'X') }.to change(game, :turn).by(1)
     end
   end
 end
