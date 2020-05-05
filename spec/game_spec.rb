@@ -101,4 +101,10 @@ describe Game do
       expect(game.who_win?(player, player2)).to eql('RS')
     end
   end
+  describe '#check_restart' do
+    it 'Call private method restart_game' do
+      expect(game).to receive(:restart_game)
+      game.check_restart(player, player2)
+    end
+  end
 end
