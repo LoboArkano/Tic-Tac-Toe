@@ -56,8 +56,8 @@ describe Game do
     end
   end
   describe '#win_check' do
-    let(:choices) { [1, 2, 3] }
-    let(:choices2) { [1, 3, 8] }
+    let(:choices) { %w[1 2 3 4] }
+    let(:choices2) { %w[1 3 8] }
     it 'Return true if a victory_row is a subset of choices' do
       expect(game.win_check(choices)).to eql(true)
     end
