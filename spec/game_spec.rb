@@ -64,4 +64,18 @@ describe Game do
       expect(game.win_check(choices2)).to eql(false)
     end
   end
+  describe '#game_over' do
+    it 'Change the value of end_game to true' do
+      game.game_over(player)
+      expect(game.end_game).to be true
+    end
+    it 'Change the value of victory to true' do
+      game.game_over(player)
+      expect(game.victory).to be true
+    end
+    it 'Change the value of winner to true' do
+      game.game_over(player)
+      expect(player.winner).to be true
+    end
+  end
 end
