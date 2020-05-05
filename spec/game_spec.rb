@@ -6,6 +6,7 @@ describe Game do
   let(:game) { Game.new }
   let(:game_board) { Board.new }
   let(:player) { Player.new('GTO') }
+  let(:player2) { Player.new('RS') }
   describe '#in_range?' do
     it 'Return true if input is greater or equal than 1 and less or equal than 9' do
       expect(game.in_range?(5)).to eql(true)
@@ -55,7 +56,7 @@ describe Game do
     end
   end
   describe '#win_check' do
-    let(:choices) { [1, 2, 3, 4, 5, 6, 7, 8, 9] }
+    let(:choices) { [1, 2, 3] }
     let(:choices2) { [1, 3, 8] }
     it 'Return true if a victory_row is a subset of choices' do
       expect(game.win_check(choices)).to eql(true)
@@ -88,6 +89,16 @@ describe Game do
       game.turn = 5
       game.draw_check
       expect(game.end_game).to be false
+    end
+  end
+  describe '#who_win?' do
+    it "Return the player's name (GTO) when win the match" do
+      player.winner = true
+      expect(game.who_win?(player, player2)).to eql('GTO')
+    end
+    it "Return the player's name (RS) when win the match" do
+      player2.winner = true
+      expect(game.who_win?(player, player2)).to eql('RS')
     end
   end
 end
