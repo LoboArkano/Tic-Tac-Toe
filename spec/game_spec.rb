@@ -5,6 +5,7 @@ require './lib/player'
 describe Game do
   let(:game) { Game.new }
   let(:game_board) { Board.new }
+  let(:player) { Player.new('GTO') }
   describe '#in_range?' do
     it 'Return true if input is greater or equal than 1 and less or equal than 9' do
       expect(game.in_range?(5)).to eql(true)
@@ -46,12 +47,21 @@ describe Game do
   end
   describe '#update_game' do
     let(:board) { game_board.board }
-    let(:player) { Player.new('GTO') }
     it 'Update the board with the user move' do
       expect { game_board.update_move(3, 'X') }.to change(game_board, :board)
     end
     it 'turn variable increment his value by one' do
       expect { game.update_game(player, game_board, 'X') }.to change(game, :turn).by(1)
+    end
+  end
+  describe '#win_check' do
+    let(:choices) { [1, 2, 3, 4, 5, 6, 7, 8, 9] }
+    let(:choices2) { [1, 3, 8] }
+    it 'Return true if a victory_row is a subset of choices' do
+      expect(game.win_check(choices)).to eql(true)
+    end
+    it 'Return false if any victory_row is a subset of choices' do
+      expect(game.win_check(choices2)).to eql(false)
     end
   end
 end
