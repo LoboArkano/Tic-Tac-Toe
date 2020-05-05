@@ -78,4 +78,16 @@ describe Game do
       expect(player.winner).to be true
     end
   end
+  describe '#draw_check' do
+    it 'Change the value of end_game to true if turn is greater than 9' do
+      game.turn = 10
+      game.draw_check
+      expect(game.end_game).to be true
+    end
+    it 'end_game is false if turn is less than 9' do
+      game.turn = 5
+      game.draw_check
+      expect(game.end_game).to be false
+    end
+  end
 end
