@@ -19,4 +19,15 @@ describe Board do
       expect(game_board.board[4]).to include('9')
     end
   end
+  describe '#row_position' do
+    it 'Return the first row position' do
+      expect(game_board.row_position(2)).to eql(0)
+    end
+    it 'Return the second row position' do
+      expect(game_board.row_position(5)).to eql(2)
+    end
+    it 'Return the third row position' do
+      expect(game_board.row_position(8)).to eql(4)
+    end
+  end
 end
