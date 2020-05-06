@@ -41,4 +41,9 @@ describe Board do
       expect(game_board.column_position(9)).to eql(4)
     end
   end
+  describe '#update_move' do
+    it 'Update board with the last movement' do
+      expect { game_board.update_move(5, 'X') }.to change(game_board, :board)
+    end
+  end
 end
