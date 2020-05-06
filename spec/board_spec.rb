@@ -12,4 +12,11 @@ describe Board do
       expect(game_board.board[2][4]).to eql('O')
     end
   end
+  describe '#default' do
+    it "Replace ' ' with numbers from 1 to 9" do
+      game_board.default
+      expect(game_board.board[2]).to include('5')
+      expect(game_board.board[4]).to include('9')
+    end
+  end
 end
