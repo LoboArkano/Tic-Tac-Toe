@@ -30,4 +30,15 @@ describe Board do
       expect(game_board.row_position(8)).to eql(4)
     end
   end
+  describe '#column_position' do
+    it 'Return the first column position' do
+      expect(game_board.column_position(1)).to eql(0)
+    end
+    it 'Return the second column position' do
+      expect(game_board.column_position(5)).to eql(2)
+    end
+    it 'Return the third column position' do
+      expect(game_board.column_position(9)).to eql(4)
+    end
+  end
 end
